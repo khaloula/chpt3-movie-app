@@ -1,25 +1,32 @@
-import logo from './logo.svg';
+import React, { useState } from 'react'
 import './App.css';
+import MovieList from './MovieList/MovieList';
+import{moviesData} from './contants/data'
+import AddMovie from './MovieList/AddMovie/AddMovie';
+import FilterByName from './components/FilterByName/FiterByName';
+import FilterByRate from './components/Rating/Rating'
+import Navbar from './components/Navbar/Navbar';
+
+
 
 function App() {
+  const [movies, setMovies ] = useState (moviesData)
+  const [inputSearch, setInputSearch] = useState("")
+  const [rating, setRating] = useState(1)
+  const add = (newMovie)=> {
+    setMovies ([...movies,newMovie])
+  }
   return (
+    
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>MOVIE APP</h1>
+      <Navbar/>
+    <FilterByName inputSearch={inputSearch}setInputSearch ={setInputSearch} />
+    <FilterByRate rating={rating}setRating={setRating}  />
+      <MovieList isMovieRating={false} movies={movies}inputSearch={inputSearch} rating={rating}/>
+      <AddMovie add ={add}/>
     </div>
   );
-}
 
+  }
 export default App;
